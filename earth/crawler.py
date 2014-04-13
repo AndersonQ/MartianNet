@@ -13,15 +13,12 @@
  # You should have received a copy of the GNU General Public License
  # along with MartianNet.  If not, see <http://www.gnu.org/licenses/>.
 
-
 # coding: UTF-8
 
 ## IMPORTS  ##
 import string
-#from sys import argv
-import sys
-#from urllib2 import urlopen # opens urlb2ul
-import urllib2
+import sys # to use argv 
+import urllib2 # to use urlopen
 from bs4 import BeautifulSoup # parses html
 
 ## FUNCTIONS ##
@@ -32,44 +29,42 @@ def writeFile(filename, data):
 	f.close
 
 ## INPUTS ##
-#target = 'http://en.wikipedia.org/wiki/Glasgow' # target url
-target = sys.argv[1]
-nlinks = 10 # number of links to pre-load
+target = sys.argv[1] # the target url taken as an argument when running script
+#nlinks = 10 # the number of links to crawl and pre-load (still to be implemented)
 
 ## LOOP ##
 # opens the url
 mypage = urllib2.urlopen(target)
 
+# creates parse tree from url
 soup = BeautifulSoup(mypage)
 
-# formats html and turns it into a string
+# turns parse tree into formatted Unicode string
 prettysoup = (soup.prettify())
 
-#removing non ascii characters
+#removes non ascii characters (beautiful soup doesn't like them)
 asciisoup = filter(lambda x: x in string.printable, prettysoup)
 
 # writes the target page to file
 writeFile('basefile.html', asciisoup)
 
-urls = [] # list to store urls from target url page
+urls = [] # list to store urls found on target page
 
-for link in soup.find_all("a"): #{"class": "mw-redirect"}):
+# searches tree for all links and appends links to urls list
+for link in soup.find_all("a"):
 	urls.append(link.get('href'))
 
-#print urls
-
+# extracts the root url from target url
 pieces = string.split(target, '/')
 rootsite = pieces[0] + '//' + pieces[2]
 
-#create a script to use 'sed' to replace the links with
-#the adree of the file where it was stored
+#creates a script to use 'sed' to replace the links with
+#the address of the file where it was stored
 sedScript = open('sedScript.sh', "w")
 
-for url in range(0,len(urls)):#nlinks):
-	#newpage = 'http://en.wikipedia.org' + urls[url]
+for url in range(0,len(urls)):
 	newpage = urls[url]
 	newpageOLD = newpage
-	#print newpage
 	if newpage != None:
 		https = string.find(newpage, 'https://')
 		http = string.find(newpage, 'http://')
@@ -80,9 +75,9 @@ for url in range(0,len(urls)):#nlinks):
 		try:
 			openpage = urllib2.urlopen(newpage)
 			newsoup = BeautifulSoup(openpage)
-			lamesoup = (newsoup.prettify())
-			newascii = filter(lambda x: x in string.printable, lamesoup)
-			writeFile('remotefile'+str(url)+'.html', newascii)
+			prettynewsoup = (newsoup.prettify())
+			newasciisoup = filter(lambda x: x in string.printable, prettynewsoup)
+			writeFile('remotefile'+str(url)+'.html', newasciisoup)
 			#write to sedScript
 			sedLine = "sed -i -e \'s@" + newpageOLD + "@" + \
 						'remotefile'+str(url)+'.html@g\' ' + \
