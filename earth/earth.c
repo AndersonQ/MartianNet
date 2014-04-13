@@ -103,15 +103,17 @@ int main()
 			char *cmd, *cmd1;
 			strncpy(link, &s_buff[4], bytes_read - 4);
 			printf("siteSNT: %s\n", link);
-			int i = 7;
-			printf("%c\n", '/');
+			/*int i = 7;
+			printf("link[%d]: %c\n", i, link[i]);
 			while (link[i] != '/')
 			{
+				puts("inside while");
 				i++;
 				if(i >= bytes_read)
 					break;
-			}
-			strncpy(link, &s_buff[11], i-7);
+			}*/
+			//link = strncpy(link, &s_buff[11], bytes_read-6);//bytes_read-18);
+			//printf("bytes to copy: %d\n", bytes_read-6);
 			//printf("folderName: %s\n", link);
 			cmd = (char*) malloc(
 							(bytes_read + 50)*sizeof(char));
