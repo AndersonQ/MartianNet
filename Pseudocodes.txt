@@ -1,0 +1,46 @@
+earth.c
+	while(42)
+	{
+		open_pipe(pipe_in);
+		msg = read(pipe_in);
+		site <- get_site_from_msg(msg);
+
+		if(msg is 'get' command)
+		{
+			site <- get_site_from_msg(msg);
+			python crawler.py site;
+			exec("sedScript.sh");
+			exec(generate_tar_ball_of_downloaded_pages);
+			send_file("sites.tar.gz", dtn://destination.dtn);
+		}
+	
+		if(msg is 'snt' command)
+		{
+			create_dir(user/www/site);
+			copy_file_from_dtnNode(user/www/site);
+			alert_user(Website 'site' has arrived!);
+		}
+	}
+
+crawler.py
+	site = argv[1];
+	save_on_hd(site, 'basefile.html')
+	links <- craw_1st_link_layer(site);
+	for each link in links
+	{
+		if necessary fix link
+		ignore links not available
+		save_on_hd(link, 'remotefile'+count+'.html');
+		generate sed script to replace 'link' for 'remotefile'+count+'.html' in 'basefile.html'
+	}
+
+receivemsg.c
+// it is a extension of dtnrecv from dtn2 v2.9.0, see http://www.dtnrg.org/wiki/Code
+
+	void print_data(char* buffer, u_int length)
+	{
+		//Original code
+		msg <- get_msg(buffer, length);
+		open_pipe(pipe_in);
+		write(pipe_in, msg);
+	}
