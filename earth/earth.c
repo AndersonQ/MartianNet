@@ -107,16 +107,12 @@ int main()
 			printf("%c\n", '/');
 			while (link[i] != '/')
 			{
-				printf("link[%d]: %c\n", i, link[i]);
 				i++;
 				if(i >= bytes_read)
-				{
-					printf("link[%d]: %c\n", i - 1, link[i-1]);
 					break;
-				}
 			}
 			strncpy(link, &s_buff[11], i-7);
-			printf("folderName: %s\n", link);
+			//printf("folderName: %s\n", link);
 			cmd = (char*) malloc(
 							(bytes_read + 50)*sizeof(char));
 			cmd1 = (char*) malloc(
