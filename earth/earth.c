@@ -87,6 +87,9 @@ int main()
 			system("chmod +x sedScript.sh");
 			system("sh sedScript.sh");
 			system("tar -zcf site.tar.gz remotefile* basefile.html");
+			//copying to mars
+			system("/home/ainsoph/devel/SpaceApp/dtn-2.9.0/apps/dtncp/dtncp site.tar.gz dtn://spaceapps.dtn");
+			system("/home/ainsoph/devel/SpaceApp/dtn-2.9.0/apps/dtnsend/dtnsend -s dtn://spaceapps.dtn/me -d dtn://spaceapps.dtn/mars -t m -p \"snt\"");
 			printf("%s done!\n", link);
 		}
 	}
