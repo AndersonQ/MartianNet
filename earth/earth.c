@@ -69,16 +69,20 @@ int main()
 		printf("bytes read: %d\n", bytes_read);
 		printf("Pipe out = %s\n", s_buff);
 		
-		//Parsing command
+		/*Parsing command*/
+		//get: to get a web sit and its first layers of links
 		int res = strncmp(s_buff, "get", 3);
 		if(res == 0)
 		{
-			FILE *crawler = fopen(CRAWLER, "r");
+			//FILE *crawler = fopen(CRAWLER, "r");
 			strncpy(link, &s_buff[4], bytes_read - 4);
 			printf("site: %s\n", link);
 			char *callpy = NULL;
+			char *sentmsg = NULL;
 			callpy = (char*) malloc(
 							(bytes_read + CRAWLERSIZE)*sizeof(char));
+			sentmsg = (char*) malloc(
+							(bytes_read + 140)*sizeof(char));
 			callpy[0] = '\0';
 			callpy = strcat(callpy, CRAWLER);
 			callpy = strcat(callpy, link);
@@ -89,8 +93,43 @@ int main()
 			system("tar -zcf site.tar.gz remotefile* basefile.html");
 			//copying to mars
 			system("/home/ainsoph/devel/SpaceApp/dtn-2.9.0/apps/dtncp/dtncp site.tar.gz dtn://spaceapps.dtn");
-			system("/home/ainsoph/devel/SpaceApp/dtn-2.9.0/apps/dtnsend/dtnsend -s dtn://spaceapps.dtn/me -d dtn://spaceapps.dtn/mars -t m -p \"snt\"");
+			sprintf(sentmsg, "/home/ainsoph/devel/SpaceApp/dtn-2.9.0/apps/dtnsend/dtnsend -s dtn://spaceapps.dtn/me -d dtn://spaceapps.dtn/mars -t m -p \"snt:%s\"", link);
+			system(sentmsg);
 			printf("%s done!\n", link);
+		}
+		res = strncmp(s_buff, "snt", 3);
+		if(res == 0)
+		{
+			char *cmd, *cmd1;
+			strncpy(link, &s_buff[4], bytes_read - 4);
+			printf("siteSNT: %s\n", link);
+			int i = 7;
+			printf("%c\n", '/');
+			while (link[i] != '/')
+			{
+				printf("link[%d]: %c\n", i, link[i]);
+				i++;
+				if(i >= bytes_read)
+				{
+					printf("link[%d]: %c\n", i - 1, link[i-1]);
+					break;
+				}
+			}
+			strncpy(link, &s_buff[11], i-7);
+			printf("folderName: %s\n", link);
+			cmd = (char*) malloc(
+							(bytes_read + 50)*sizeof(char));
+			cmd1 = (char*) malloc(
+							(bytes_read + 125)*sizeof(char));
+			//create folder to store downloaded site
+			sprintf(cmd, "mkdir -p /home/ainsoph/devel/SpaceApp/ainsoph/www/%s", link);
+			system(cmd);
+			//printf("%s\n", cmd);
+			//copy tar.gz file
+			sprintf(cmd1, "mv /home/ainsoph/devel/SpaceApp/ainsoph/dtn/incoming/spaceapps.dtn/site.tar.gz /home/ainsoph/devel/SpaceApp/ainsoph/www/%s/", link);
+			//printf("%s\n", cmd1);
+			system(cmd1);
+			printf("Site %s available!\n", link);
 		}
 	}
 }
