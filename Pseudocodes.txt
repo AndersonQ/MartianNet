@@ -35,7 +35,7 @@ crawler.py
 	}
 
 receivemsg.c
-// it is a extension of dtnrecv from dtn2 v2.9.0, see http://www.dtnrg.org/wiki/Code
+// it is a extension of 'dtnrecv.c' from dtn2 v2.9.0, see http://www.dtnrg.org/wiki/Code
 
 	void print_data(char* buffer, u_int length)
 	{
