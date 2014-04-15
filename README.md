@@ -31,10 +31,10 @@ The final addition to the project is to let the requester have ultimate freedom 
 
 Resources
 
-DTN Research Group - http://www.dtnrg.org/wiki/Code
-Godot Coffee Documentation - http://godotcoffee.co.uk/docs/bidse.pdf
-Beautiful Soup - http://www.crummy.com/software/BeautifulSoup/
-Group Collaboration - https://docs.google.com/document/d/17XiJ2-4hgc6Obeg6EoNjZuFLe643h2Vd9FgZbANH2X4/edit?usp=sharing
+DTN Research Group - http://www.dtnrg.org/wiki/Code 
+Godot Coffee Documentation - http://godotcoffee.co.uk/docs/bidse.pdf 
+Beautiful Soup - http://www.crummy.com/software/BeautifulSoup/ 
+Group Collaboration - https://docs.google.com/document/d/17XiJ2-4hgc6Obeg6EoNjZuFLe643h2Vd9FgZbANH2X4/edit?usp=sharing 
 
 Team
 	Anderson de Franca Queiroz
