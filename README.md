@@ -12,10 +12,12 @@ This project is solving the 'Bring the Internet to Deep Space Exploration' chall
 
 
 Overview:
+
 Current attempts to communicate through the DTN bundle have been successful, yet, there has not been enough effort to create an application that will successfully enable humans on another planet to request information from websites on Earth. The project uses a combination of currently employed techniques used on Earth to crawl and collect/download information from websites.
 
 
 Aims:
+
 Within the SpaceApps Challenge timeframe, the team has agreed that the Aims for the Challenge are to create an application, on both ends, that will permit humans out-with Earth to function on computer systems as they would do on Earth normally. The application, as agreed, must adhere to certain key fundamental steps for successful communication, such as:
 
     Send a request from a planet to Earth successfully
@@ -29,14 +31,18 @@ The final addition to the project is to let the requester have ultimate freedom 
 
 
 
-Resources
+Resources:
 
 DTN Research Group - http://www.dtnrg.org/wiki/Code 
+	
 Godot Coffee Documentation - http://godotcoffee.co.uk/docs/bidse.pdf 
+
 Beautiful Soup - http://www.crummy.com/software/BeautifulSoup/ 
+
 Group Collaboration - https://docs.google.com/document/d/17XiJ2-4hgc6Obeg6EoNjZuFLe643h2Vd9FgZbANH2X4/edit?usp=sharing 
 
-Team
+Team:
+
 	Anderson de Franca Queiroz
 	Andrew Gill
 	Aziz Rasool
